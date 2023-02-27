@@ -13,5 +13,12 @@
   "bugs": {
     "url": "https://github.com/liquid-labs/liq-projects-lib/issues"
   },
-  "homepage": "https://github.com/liquid-labs/liq-projects-lib#readme"
+  "homepage": "https://github.com/liquid-labs/liq-projects-lib#readme",
+  "liq": {
+    "packageType": "node|lib",
+    "tags": []
+  },
+  "devDependencies": {
+    "@liquid-labs/catalyst-scripts": "^1.0.0-alpha.57"
+  }
 }
