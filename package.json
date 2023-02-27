@@ -1,10 +1,10 @@
 {
   "name": "@liquid-labs/liq-projects-lib",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "",
   "main": "dist/liq-projects-lib.js",
   "scripts": {
-        "build": "make build",
+    "build": "make build",
     "lint": "make lint",
     "lint:fix": "make lint-fix",
     "test": "make test",
