@@ -3,7 +3,7 @@ import * as fsPath from 'node:path'
 import { readFJSON } from '@liquid-labs/federated-json'
 import { tryExec } from '@liquid-labs/shell-toolkit'
 
-const crossLinkDevProjects = ({ playground, projects, reporter }) => {
+const crossLinkDevProjects = ({ dryRun, playground, projects, reporter }) => {
   // first, let's extarct necessary data and build out our view of the question
   const crossLinks = {}
   reporter?.push(`Gathering project data for ${projects.length} projects...`)
@@ -14,7 +14,7 @@ const crossLinkDevProjects = ({ playground, projects, reporter }) => {
     const pkgData = readFJSON(pkgPath)
     crossLinks[projectFQN] = {
       npmName : pkgData.name,
-      npmDeps : Object.keys(pkgData.dependencies),
+      npmDeps : Object.keys(pkgData.dependencies || {}),
       projectPath
     }
   }
@@ -34,11 +34,15 @@ const crossLinkDevProjects = ({ playground, projects, reporter }) => {
     }
   }
 
-  for (const { dependencyFQN, dependencyNPMName, dependencyPath, dependentFQN, dependentPath } of links) {
-    reporter?.push(`Linking dependency ${dependencyFQN} to dependent ${dependentFQN}...`)
-    tryExec(`cd '${dependencyPath}' && yalc publish`)
-    tryExec(`cd '${dependentPath}' && yalc add ${dependencyNPMName}`)
+  if (dryRun !== true) {
+    for (const { dependencyFQN, dependencyNPMName, dependencyPath, dependentFQN, dependentPath } of links) {
+      reporter?.push(`Linking dependency ${dependencyFQN} to dependent ${dependentFQN}...`)
+      tryExec(`cd '${dependencyPath}' && yalc publish`)
+      tryExec(`cd '${dependentPath}' && yalc add ${dependencyNPMName}`)
+    }
   }
+
+  return links
 }
 
 export { crossLinkDevProjects }
