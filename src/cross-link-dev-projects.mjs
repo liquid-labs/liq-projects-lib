@@ -12,9 +12,14 @@ const crossLinkDevProjects = ({ dryRun, playground, projects, reporter }) => {
     const projectPath = fsPath.join(playground, org, project)
     const pkgPath = fsPath.join(projectPath, 'package.json')
     const pkgData = readFJSON(pkgPath)
+    const npmDeps =
+      Object.keys(pkgData.dependencies || {})
+        .concat(Object.keys(pkgData.devDependencies || {}))
+        .concat(Object.keys(pkgData.peerDependencies || {}))
+        .concat(Object.keys(pkgData.optionalDependencies || {}))
     crossLinks[projectFQN] = {
       npmName : pkgData.name,
-      npmDeps : Object.keys(pkgData.dependencies || {}),
+      npmDeps,
       projectPath
     }
   }
