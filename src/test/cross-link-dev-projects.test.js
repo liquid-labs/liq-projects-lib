@@ -7,11 +7,12 @@ describe('crossLinkDevProjects', () => {
   test('can deal with lack of dependencies', () => {
     const playground = fsPath.resolve(fsPath.join(__dirname, '..', 'data'))
     expect(() => {
-      const links = crossLinkDevProjects({ 
-        dryRun:true, 
+      const links = crossLinkDevProjects({
+        dryRun   : true,
         playground,
-        projects: ['orgA/proj1']
+        projects : ['orgA/proj1']
       })
+      expect(links).toHaveLength(0)
     }).not.toThrow()
   })
 })
