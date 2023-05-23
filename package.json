@@ -12,6 +12,9 @@
     "prepare": "npm run build",
     "qa": "make qa"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
   "license": "UNLICENSED",
@@ -24,14 +27,15 @@
     "packageType": "node|lib",
     "tags": []
   },
-  "devDependencies": {
-    "@liquid-labs/catalyst-scripts": "^1.0.0-alpha.57"
-  },
   "dependencies": {
     "@liquid-labs/federated-json": "^1.0.0-alpha.33",
     "@liquid-labs/liq-credentials-db": "^1.0.0-alpha.3",
     "@liquid-labs/octocache": "^1.0.0-alpha.4",
     "@liquid-labs/shell-toolkit": "^1.0.0-alpha.3",
-    "@liquid-labs/versioning": "^1.0.0-alpha.4"
+    "@liquid-labs/versioning": "^1.0.0-alpha.4",
+    "find-root": "^1.1.0"
+  },
+  "devDependencies": {
+    "@liquid-labs/catalyst-scripts-node-project": "^1.0.0-alpha.15"
   }
 }
