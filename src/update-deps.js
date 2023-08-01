@@ -1,6 +1,5 @@
-/**
-* This is a worker-thread script which udpates a projects dependencies.
-*/
+import * as semver from 'semver'
+
 import { tryExec } from '@liquid-labs/shell-toolkit'
 
 const updateDeps = ({ dryRun, localProjectPath, projectName }) => {
@@ -30,8 +29,13 @@ const updateDeps = ({ dryRun, localProjectPath, projectName }) => {
   let updateCommand = `npm i ${dryRun ? '--dry-run ' : ''}`
   for (const pkgName in outdatedData) { // eslint-disable-line guard-for-in
     const { current, wanted, latest } = outdatedData[pkgName]
-    updateCommand += ` ${pkgName}@${wanted}`
-    actions.push(`${dryRun ? 'DRY RUN: ' : ''}Updated ${pkgName}@${current} to ${wanted}${wanted === latest ? ' (latest)' : ''}`)
+    if (current !== wanted) { // because 'latest' might be different than wanted
+      updateCommand += ` ${pkgName}@${wanted}`
+      actions.push(`${dryRun ? 'DRY RUN: ' : ''}Updated ${pkgName}@${current} to ${wanted}${wanted === latest ? ' (latest)' : ''}`)
+    }
+    else if (semver.gt(latest, current, { includePrerelease: true })) {
+      actions.push(`Major update available for ${pkgName}@${current} to ${latest}`)
+    }
   }
 
   const updateResult = tryExec(`set -e
