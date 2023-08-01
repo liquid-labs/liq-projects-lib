@@ -1,18 +1,13 @@
 /**
 * This is a worker-thread script which udpates a projects dependencies.
 */
-import shell from 'shelljs'
+import { tryExec } from '@liquid-labs/shell-toolkit'
 
 const updateDeps = ({ dryRun, localProjectPath, projectName }) => {
-  shell.config.silent = true
-  const execOptions = { shell : '/bin/bash' }
-
   // no 'set -e' because 'outdated' exits '1' if there's anything to update.
-  const outdatedResult = shell.exec(`
+  const outdatedResult = tryExec(`
     cd "${localProjectPath}"
-    npm --json outdated`,
-  execOptions
-  )
+    npm --json outdated`)
   if (outdatedResult.stderr) { // notice we can't check 'code' since 'no updates' exits with code '1'; this is arguable
     // an npm bug...
     throw new Error(`There was an error gathering update data: ${outdatedResult.stdout}`)
@@ -28,7 +23,7 @@ const updateDeps = ({ dryRun, localProjectPath, projectName }) => {
 
   if (!outdatedData || Object.keys(outdatedData).length === 0) {
     parentPort.postMessage([`No updates found for '${projectName}'.`])
-    return { updated : false, shell }
+    return { updated : false }
   }
 
   const actions = []
@@ -39,17 +34,15 @@ const updateDeps = ({ dryRun, localProjectPath, projectName }) => {
     actions.push(`${dryRun ? 'DRY RUN: ' : ''}Updated ${pkgName}@${current} to ${wanted}${wanted === latest ? ' (latest)' : ''}`)
   }
 
-  const updateResult = shell.exec(`set -e
+  const updateResult = tryExec(`set -e
     cd "${localProjectPath}"
-    ${updateCommand}`,
-  execOptions
-  )
+    ${updateCommand}`)
   if (updateResult.code !== 0) {
     throw new Error(`There was an error updating ${projectName} using '${updateCommand}': ${updateResult.stderr}`)
   }
   parentPort.postMessage(actions)
 
-  return { updated : true, shell }
+  return { updated : true }
 }
 
 export { updateDeps }
