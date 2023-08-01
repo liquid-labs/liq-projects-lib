@@ -1,0 +1,20 @@
+Test git rev: a7e20a5b3d952e095d0bdd525b613a465bdc67d5
+PASS test/get-package-json.test.js
+PASS test/cross-link-dev-projects.test.js
+PASS test/update-package-json.test.js
+PASS test/determine-implied-project.test.js
+-------------------------------|---------|----------|---------|---------|-------------------
+File                           | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------------------|---------|----------|---------|---------|-------------------
+All files                      |   87.09 |    83.67 |     100 |   85.96 |                   
+ cross-link-dev-projects.mjs   |   77.41 |    71.42 |     100 |   75.86 | 35-37,43-46       
+ determine-implied-project.mjs |    90.9 |      100 |     100 |      90 | 13                
+ get-package-json.mjs          |     100 |      100 |     100 |     100 |                   
+ update-package-json.mjs       |     100 |      100 |     100 |     100 |                   
+-------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 4 passed, 4 total
+Tests:       10 passed, 10 total
+Snapshots:   0 total
+Time:        0.302 s, estimated 1 s
+Ran all test suites.
