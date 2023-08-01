@@ -7,7 +7,7 @@ const updateDeps = ({ dryRun, localProjectPath, projectName }) => {
   // no 'set -e' because 'outdated' exits '1' if there's anything to update.
   const outdatedResult = tryExec(`
     cd "${localProjectPath}"
-    npm --json outdated`, { noThrow: true })
+    npm --json outdated`, { noThrow : true })
   if (outdatedResult.stderr) { // notice we can't check 'code' since 'no updates' exits with code '1'; this is arguable
     // an npm bug...
     throw new Error(`There was an error gathering update data: ${outdatedResult.stdout}`)
@@ -21,12 +21,12 @@ const updateDeps = ({ dryRun, localProjectPath, projectName }) => {
     throw new Error(`Could not parse update data '${outdatedResult.stdout}': ${err}`)
   }
 
+  const actions = []
   if (!outdatedData || Object.keys(outdatedData).length === 0) {
-    parentPort.postMessage([`No updates found for '${projectName}'.`])
-    return { updated : false }
+    actions.push(`No updates found for '${projectName}'.`)
+    return { updated : false, actions }
   }
 
-  const actions = []
   let updateCommand = `npm i ${dryRun ? '--dry-run ' : ''}`
   for (const pkgName in outdatedData) { // eslint-disable-line guard-for-in
     const { current, wanted, latest } = outdatedData[pkgName]
