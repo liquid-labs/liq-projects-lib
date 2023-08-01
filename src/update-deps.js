@@ -7,7 +7,7 @@ const updateDeps = ({ dryRun, localProjectPath, projectName }) => {
   // no 'set -e' because 'outdated' exits '1' if there's anything to update.
   const outdatedResult = tryExec(`
     cd "${localProjectPath}"
-    npm --json outdated`)
+    npm --json outdated`, { noThrow: true })
   if (outdatedResult.stderr) { // notice we can't check 'code' since 'no updates' exits with code '1'; this is arguable
     // an npm bug...
     throw new Error(`There was an error gathering update data: ${outdatedResult.stdout}`)
@@ -40,9 +40,8 @@ const updateDeps = ({ dryRun, localProjectPath, projectName }) => {
   if (updateResult.code !== 0) {
     throw new Error(`There was an error updating ${projectName} using '${updateCommand}': ${updateResult.stderr}`)
   }
-  parentPort.postMessage(actions)
 
-  return { updated : true }
+  return { updated : true, actions }
 }
 
 export { updateDeps }
