@@ -33,7 +33,7 @@ const updateDeps = ({ dryRun, localProjectPath, projectName }) => {
       updateCommand += ` ${pkgName}@${wanted}`
       actions.push(`${dryRun ? 'DRY RUN: ' : ''}Updated ${pkgName}@${current} to ${wanted}${wanted === latest ? ' (latest)' : ''}`)
     }
-    else if (semver.gt(latest, current, { includePrerelease: true })) {
+    else if (semver.gt(latest, current, { includePrerelease : true })) {
       actions.push(`Major update available for ${pkgName}@${current} to ${latest}`)
     }
   }
