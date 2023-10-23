@@ -34,6 +34,7 @@
     "@liquid-labs/shell-toolkit": "^1.0.0-alpha.7",
     "@liquid-labs/versioning": "^1.0.0-alpha.4",
     "find-root": "^1.1.0",
+    "http-errors": "^2.0.0",
     "semver": "^7.5.4"
   },
   "devDependencies": {
