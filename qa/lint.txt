@@ -1,0 +1,13 @@
+Test git rev: c2d4585d612b6c6c1694802d341013494423b574
+
+/Users/zane/.liq/playground/liquid-labs/liq-projects-lib/src/test/cross-link-dev-projects.test.js
+  11:7   error  Missing space after key 'ext'                key-spacing
+  12:9   error  Missing space after key '_liqProjects'       key-spacing
+  13:11  error  Missing space after key 'playgroundMonitor'  key-spacing
+  14:13  error  Missing space after key 'getProjectData'     key-spacing
+  14:38  error  Missing space after key 'projectPath'        key-spacing
+  23:9   error  Missing space after key 'app'                key-spacing
+
+✖ 6 problems (6 errors, 0 warnings)
+  6 errors and 0 warnings potentially fixable with the `--fix` option.
+
