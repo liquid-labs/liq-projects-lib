@@ -1,13 +1,13 @@
 import { Octocache } from '@liquid-labs/octocache'
 import { minVersion } from '@liquid-labs/versioning'
 
-const determineCurrentMilestone = async({ app, cache, gitHubOrg, project }) => {
+const determineCurrentMilestone = async({ app, cache, gitHubOrg, projectBasename }) => {
   const credDB = app.ext.credentialsDB
-  const authToken = credDB.getToken('GITHUB_API')
+  const authToken = await credDB.getToken('GITHUB_API')
 
   const octocache = new Octocache({ authToken })
 
-  const milestoneData = await octocache.paginate(`GET /repos/${gitHubOrg}/${project}/milestones`)
+  const milestoneData = await octocache.paginate(`GET /repos/${gitHubOrg}/${projectBasename}/milestones`)
 
   const milestones = milestoneData.map((m) => m.title)
 

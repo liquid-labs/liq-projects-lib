@@ -3,13 +3,12 @@ import * as fsPath from 'node:path'
 import { readFJSON } from '@liquid-labs/federated-json'
 import { tryExec } from '@liquid-labs/shell-toolkit'
 
-const crossLinkDevProjects = ({ dryRun, playground, projects, reporter }) => {
+const crossLinkDevProjects = ({ app, dryRun, projects, reporter }) => {
   // first, let's extarct necessary data and build out our view of the question
   const crossLinks = {}
   reporter?.push(`Gathering project data for ${projects.length} projects...`)
   for (const projectFQN of projects) {
-    const [org, project] = projectFQN.split('/')
-    const projectPath = fsPath.join(playground, org, project)
+    const { projectPath } = app.ext._liqProjects.playgroundMonitor.getProjectData(projectFQN)
     const pkgPath = fsPath.join(projectPath, 'package.json')
     const pkgData = readFJSON(pkgPath)
     const npmDeps =
