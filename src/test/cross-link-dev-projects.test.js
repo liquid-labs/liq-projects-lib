@@ -8,10 +8,10 @@ describe('crossLinkDevProjects', () => {
     const proj1Path = fsPath.join(__dirname, 'data', 'orgA', 'proj1')
 
     const appMock = {
-      ext: {
-        _liqProjects: {
-          playgroundMonitor: {
-            getProjectData: () => ({ projectPath: proj1Path })
+      ext : {
+        _liqProjects : {
+          playgroundMonitor : {
+            getProjectData : () => ({ projectPath : proj1Path })
           }
         }
       }
@@ -20,7 +20,7 @@ describe('crossLinkDevProjects', () => {
     const playground = fsPath.resolve(fsPath.join(__dirname, 'data'))
     expect(() => {
       const links = crossLinkDevProjects({
-        app: appMock,
+        app      : appMock,
         dryRun   : true,
         playground,
         projects : ['@orgA/proj1']
