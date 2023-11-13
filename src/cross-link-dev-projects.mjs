@@ -8,7 +8,11 @@ const crossLinkDevProjects = ({ app, dryRun, projects, reporter }) => {
   const crossLinks = {}
   reporter?.push(`Gathering project data for ${projects.length} projects...`)
   for (const projectFQN of projects) {
-    const { projectPath } = app.ext._liqProjects.playgroundMonitor.getProjectData(projectFQN)
+    const projectPath = app.ext._liqProjects.playgroundMonitor.getProjectData(projectFQN)?.projectPath
+    if (projectPath === undefined) {
+      throw new Error(`Was asked to cross-link '${projectFQN}' but no such project was found.`)
+    }
+
     const pkgPath = fsPath.join(projectPath, 'package.json')
     const pkgData = readFJSON(pkgPath)
     const npmDeps =
