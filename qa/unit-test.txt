@@ -1,0 +1,16 @@
+Test git rev: 9f53917aac7e5ec8867fc8d09c460d93da639518
+PASS test/cross-link-dev-projects.test.js
+PASS test/update-package-json.test.js
+-----------------------------|---------|----------|---------|---------|-------------------
+File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-----------------------------|---------|----------|---------|---------|-------------------
+All files                    |   80.48 |    74.35 |     100 |   78.94 |                   
+ cross-link-dev-projects.mjs |      75 |    69.69 |     100 |   73.33 | 13,38-40,46-49    
+ update-package-json.mjs     |     100 |      100 |     100 |     100 |                   
+-----------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 2 passed, 2 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        0.177 s, estimated 1 s
+Ran all test suites.
