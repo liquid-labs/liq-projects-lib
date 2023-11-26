@@ -3,12 +3,12 @@ import * as fsPath from 'node:path'
 import { readFJSON } from '@liquid-labs/federated-json'
 import { tryExec } from '@liquid-labs/shell-toolkit'
 
-const crossLinkDevProjects = ({ app, dryRun, projects, reporter }) => {
+const crossLinkDevProjects = async({ app, dryRun, projects, reporter }) => {
   // first, let's extarct necessary data and build out our view of the question
   const crossLinks = {}
   reporter?.push(`Gathering project data for ${projects.length} projects...`)
   for (const projectFQN of projects) {
-    const projectPath = app.ext._liqProjects.playgroundMonitor.getProjectData(projectFQN)?.projectPath
+    const projectPath = (await app.ext._liqProjects.playgroundMonitor.getProjectData(projectFQN))?.projectPath
     if (projectPath === undefined) {
       throw new Error(`Was asked to cross-link '${projectFQN}' but no such project was found.`)
     }
