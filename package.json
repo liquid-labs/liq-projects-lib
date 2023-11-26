@@ -1,6 +1,6 @@
 {
   "name": "@liquid-labs/liq-projects-lib",
-  "version": "1.0.0-alpha.12",
+  "version": "1.0.0-alpha.13",
   "description": "",
   "main": "dist/liq-projects-lib.js",
   "scripts": {
